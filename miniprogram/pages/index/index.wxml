@@ -1,0 +1,20 @@
+<!--miniprogram/pages/index/index.wxml-->
+<view>
+  <view  bindtap="bindViewTap" class="header">    
+    欢迎<text class="userinfo-nickname">{{userInfo.nickName}}</text>使用
+  </view>
+  <view class="col">
+    <view bindtap="onNewItem">
+      <image class="add_bg" src="../../images/add.png" style="width:120rpx;height:120rpx;"></image>
+    </view>
+    <!--没有笔记时的提示-->
+    <view wx:if="{{items.length < 1}}">
+      点击
+    </view>
+  </view>
+
+  <!--笔记列表-->
+  <block wx:for="{{items}}">
+    <text>{{item.content}}</text>
+  </block>
+</view>
