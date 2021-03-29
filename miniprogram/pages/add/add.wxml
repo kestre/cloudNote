@@ -1,9 +1,14 @@
 <!--miniprogram/pages/add/add.wxml-->
 <form bindsubmit="onSubmit">
-  <view>
-    <textarea class="text" name="content"></textarea>
+<view class="container">
+  <view class='title'><input name="title" placeholder-class="placeholder" placeholder="笔记标题"/></view>
+  <view class="row">
+    <textarea class="text" placeholder-class="placeholder" name="content" focus="{{focus}}" placeholder="开始书写" ></textarea>
   </view>
-  <view>
-    <button form-type="submit">保存</button>
+  <view class="bottom">
+    <button form-type="submit" class='btn success'>保存
+      <!--image class="success_image" src="../../images/right.png"></image-->
+    </button>
   </view>
+</view>
 </form>

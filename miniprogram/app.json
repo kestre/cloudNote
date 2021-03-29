@@ -1,15 +1,39 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/add/add"
+    "pages/login/login",
+    "pages/add/add",
+    "pages/edit/edit",
+    "pages/me/me"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "笔记本",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarTitleText": "云笔记",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "tabBar": {
+    "color": "#b3b3b3",
+    "selectedColor": "#fc8e5d",
+    "backgroundColor": "#f5f5f7",
+    "borderStyle": "white",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记事本",
+        "iconPath": "images/icon1.png",
+        "selectedIconPath": "images/sicon1.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我",
+        "iconPath": "images/icon2.png",
+        "selectedIconPath": "images/sicon2.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap8.json"
 }

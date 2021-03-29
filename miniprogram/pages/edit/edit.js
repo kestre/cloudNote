@@ -1,4 +1,4 @@
-// miniprogram/pages/add/add.js
+// miniprogram/pages/edit/edit.js
 
 //获取应用实例
 var app = getApp()
@@ -14,38 +14,33 @@ Page({
       content: "",
       create_time: {
         year: "",
-        montg: "",
+        month: "",
         day: "",
         hour: "",
         min: ""
       },
       update_time: {
         year: "",
-        montg: "",
+        month: "",
         day: "",
         hour: "",
         min: ""
       },
-      // update_time_m: "",
+      update_time_m: "",
       delItem: 0,
     },
     focus: true
   },
-
+  
   /**
-   * 保存数据事件
+   * save data
    */
   onSubmit: function(event) {
-    var item = JSON.parse(JSON.stringify(this.data.item));
+    var that = this;
+    var item = this.data.item;
     var now = new Date();
-    item.key = Date.now();
     item.title = event.detail.value.title;
     item.content = event.detail.value.content;
-    item.create_time.year = now.getFullYear();
-    item.create_time.month = now.getMonth() + 1;
-    item.create_time.day = now.getDate() ;
-    item.create_time.hour = now.getHours();
-    item.create_time.min = now.getMinutes();
     item.update_time.year = now.getFullYear();
     item.update_time.month = now.getMonth() + 1;
     item.update_time.day = now.getDate() ;
@@ -54,6 +49,12 @@ Page({
     // item.update_time_m = now;
     this.setData({
       item: item
+    })
+
+    app.globalData.items.forEach(function(it, index, arr){
+      if(it.key == item.key){
+        arr.splice(index, 1);
+      }
     })
     app.globalData.items.unshift(this.data.item)
     
@@ -65,8 +66,34 @@ Page({
     });
     wx.navigateBack();
   },
+
+  /**
+   * delete item
+   */
+  onDelete: function(event) {
+    var that = this;
+    app.globalData.items.forEach(function(it, index){
+      if(it.key == that.data.item.key){
+        //app.globalData.items.splice(index, 1);
+        app.globalData.items[index].delItem = 1;
+        // app.globalData.items[index].update_time_m = new Date();
+        app.globalData.items.unshift(app.globalData.items[index])
+        app.globalData.items.splice(index+1, 1)
+        wx.showToast({
+          title: "删除成功",
+          duration: 500
+        });
+        wx.navigateBack();
+      }
+    })
+
+    this.saveData();
+  },
+  
+  /**
+   * sync data
+   */
   saveData:function(event) {
-    let that = this;
     wx.setStorage({
       data: app.globalData.items,
       key: 'kestre',
@@ -77,7 +104,11 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    var item = this.data.item;
+    item.key = options.key;
+    this.setData({
+        item: item
+    });
   },
 
   /**
@@ -91,7 +122,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    this.loadData(this.data.item.key);   
   },
 
   /**
@@ -127,5 +158,22 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  /**
+   * get data
+   */
+  loadData: function (key) {
+    var that = this;
+    var data;
+
+    app.globalData.items.forEach(function(item,index){
+      if(item.key == key){
+        data = item;
+      }
+    })
+    that.setData({
+      item: data
+    })
+  },
 })

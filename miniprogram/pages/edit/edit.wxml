@@ -1,0 +1,24 @@
+<!--miniprogram/pages/edit/edit.wxml-->
+<form bindsubmit="onSubmit">
+<view class="container">
+  <view class='title'><input name="title" placeholder-class="placeholder" placeholder="笔记标题" value="{{item.title}}"/></view>
+  <view class="date">{{item.update_time.year}}/{{item.update_time.month}}/{{item.update_time.day}} {{item.update_time.hour}}:{{item.update_time.min}}</view>
+  <view class="line"></view>
+  <view class="row">
+    <textarea class="text" name="content" focus="{{focus}}" placeholder="开始书写" value="{{item.content}}"></textarea>
+  </view>
+  
+  <!--view class="bottom">
+    <button form-type="submit" class='btn success'>
+      <image class="success_image" src="../../images/right.png"></image>
+    </button>
+    <button bindtap="onDelete" class='btn del'>
+      <image class="del_image" src="../../images/del.png"></image>
+    </button>
+  </view-->
+  <view class="bottom">
+    <button form-type="submit" class='btn success'>保存</button>
+    <button class='btn del' bindtap="onDelete">删除</button>
+  </view>
+</view>
+</form>
